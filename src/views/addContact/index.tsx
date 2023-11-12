@@ -8,7 +8,7 @@ import { Snackbar, Alert} from '@mui/material';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Contacts, SnackbarState } from 'src/types';
 import { AddContactPageStyles } from 'src/assets/css';
-import * as moment from 'moment';
+import moment from 'moment';
 
 
 const AddContactPage = () => {
@@ -24,6 +24,7 @@ const AddContactPage = () => {
         phones: [{number: ''}],
         isFavorite: false,
     });
+    const [isError, setIsError] = useState<boolean>(false);
     const [snackbar, setSnackbar] = useState<SnackbarState>({
         open: false,
         vertical: 'top',
@@ -34,7 +35,7 @@ const AddContactPage = () => {
     const onChangeFirstName = (e: React.FormEvent<HTMLInputElement>) => {
         setUser({
             ...user,
-            first_name: e.currentTarget.value
+            first_name: e.currentTarget.value.replace(/[^\w\s]/gi, "")
         });
 
     };
@@ -42,7 +43,7 @@ const AddContactPage = () => {
     const onChangeLastName = (e: React.FormEvent<HTMLInputElement>) => {
         setUser({
             ...user,
-            last_name: e.currentTarget.value
+            last_name: e.currentTarget.value.replace(/[^\w\s]/gi, "")
         });
     };
 
@@ -69,18 +70,27 @@ const AddContactPage = () => {
             ...user,
             created_at: moment().format()
         });
-        let newUpdateUser: Contacts[] = [...allContacts]
-        newUpdateUser.push(user)
-        setGetContacts(newUpdateUser);
-        setSnackbar({...snackbar, open: true});
-        setTimeout(() => {
-            navigate('/contact', { replace: true });
-        }, 1500);
+        let newUpdateUser: Contacts[] = [...allContacts];
+        const checkUserExist = newUpdateUser.find((e: Contacts) => {
+            return e.first_name === user.first_name || e.last_name === user.last_name
+        });
+        
+        if (!checkUserExist) {
+            newUpdateUser.push(user)
+            setGetContacts(newUpdateUser);
+            setSnackbar({...snackbar, open: true});
+            setTimeout(() => {
+                navigate('/contact', { replace: true });
+            }, 1500);
+        } else {
+            setIsError(true);
+            setSnackbar({ ...snackbar, open: true });
+        }
         
     };
 
     return (
-        <div css={AddContactPageWrapper}>
+        <div data-testid="add-contact" css={AddContactPageWrapper}>
             <div css={AddContactPageContent}>
                 <ContactForm
                     isForm={true}
@@ -95,14 +105,20 @@ const AddContactPage = () => {
 
             <Snackbar 
                 open={snackbar.open} 
-                autoHideDuration={1000} 
+                autoHideDuration={2000} 
                 onClose={() => setSnackbar({...snackbar, open: false})}
                 anchorOrigin={{ vertical, horizontal }}
                 key={vertical + horizontal}
             >
-                <Alert variant="filled" severity="success">
-                    You've successfully added a contact!
-                </Alert>
+                {isError ? (
+                    <Alert variant="filled" severity="error">
+                        Contact name must be unique
+                    </Alert>
+                ): (
+                    <Alert variant="filled" severity="success">
+                        You've successfully added a contact!
+                    </Alert>
+                )}
             </Snackbar>
         </div>
     )

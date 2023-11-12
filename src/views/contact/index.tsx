@@ -109,7 +109,7 @@ const ContactPage = () => {
     }
     
     return (
-        <div css={ContactPageWrapper}>
+        <div data-testid="contact-page" css={ContactPageWrapper}>
             <div css={ContentWrapper}>
                 <div css={SearchWrapper}>
                     <h1 css={ContactPageTitle}>Contacts</h1>

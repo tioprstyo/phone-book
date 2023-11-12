@@ -4,12 +4,11 @@ import { ContactFormProps } from 'src/types';
 import { BsPersonCircle } from 'react-icons/bs';
 import { MdAdd } from 'react-icons/md';
 import { IoArrowBackOutline } from 'react-icons/io5';
-import { ContactPageStyles, ContactFormStyles } from 'src/assets/css';
+import { ContactFormStyles } from 'src/assets/css';
 import { PhoneNumber } from 'src/types';
 import { Link } from 'react-router-dom';
 
 const ContactForm = ({ isForm, isEdit, user, onChangeFirstName, onChangeLastName, onAddNewPhones, onChangePhones, onSaveData }: ContactFormProps) => {
-    const { IconButtonAddContact } = ContactPageStyles();
     const {
         ContactFormWrapper,
         ContactFormTitleWrapper,
@@ -28,6 +27,7 @@ const ContactForm = ({ isForm, isEdit, user, onChangeFirstName, onChangeLastName
         formInputPhones,
         ButtonSaveContactWrapper,
         ButtonSaveContact,
+        IconAddPhones,
      } = ContactFormStyles();
 
     const isDisabledButtonSaved = () => {
@@ -39,7 +39,7 @@ const ContactForm = ({ isForm, isEdit, user, onChangeFirstName, onChangeLastName
 
     
     return (
-        <div css={ContactFormWrapper}>
+        <div data-testid="contact-form" css={ContactFormWrapper}>
             <div css={ContactFormTitleWrapper}>
                 <Link css={ContactFormBackPage} to={`/contact`}>
                     <IoArrowBackOutline css={ContactFormBackIcon} />
@@ -66,7 +66,7 @@ const ContactForm = ({ isForm, isEdit, user, onChangeFirstName, onChangeLastName
                         <button css={ButtonAddPhones} onClick={onAddNewPhones}>
                             {
                                 isForm && (
-                                    <MdAdd css={IconButtonAddContact} />
+                                    <MdAdd css={IconAddPhones} />
                                 )
                             }
                         </button>

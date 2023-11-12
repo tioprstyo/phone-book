@@ -29,6 +29,11 @@ export const ContactFormStyles = () => {
         },
     });
 
+    const IconAddPhones = css({
+        width: 20,
+        height: 20,
+    });
+
     const ImageProfileWrapper = css({
         display: 'flex',
         alignItems: 'center',
@@ -86,7 +91,7 @@ export const ContactFormStyles = () => {
     const ButtonAddPhones = css({
         border: 'none',
         backgroundColor: 'transparent',
-        color: '#5DCEB3'
+        color: '#5DCEB3',
     });
 
     const formInputPhones = css({
@@ -94,7 +99,11 @@ export const ContactFormStyles = () => {
     });
 
     const ButtonSaveContactWrapper = css({
-        marginTop: 20,
+        marginTop: 50,
+        textAlign: 'center',
+        '@media(max-width: 600px)': {
+            marginTop: 20,
+        },
     });
 
     const ButtonSaveContact = css({
@@ -129,6 +138,7 @@ export const ContactFormStyles = () => {
         ButtonAddPhones,
         formInputPhones,
         ButtonSaveContactWrapper,
-        ButtonSaveContact
+        ButtonSaveContact,
+        IconAddPhones
     };
 };

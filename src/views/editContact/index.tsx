@@ -28,6 +28,7 @@ const EditContactPage = () => {
         phones: [],
         isFavorite: false,
     });
+    const [isError, setIsError] = useState<boolean>(false);
     const [snackbar, setSnackbar] = useState<SnackbarState>({
         open: false,
         vertical: 'top',
@@ -40,7 +41,7 @@ const EditContactPage = () => {
     const onChangeFirstName = (e: React.FormEvent<HTMLInputElement>) => {
         setUser({
             ...user,
-            first_name: e.currentTarget.value
+            first_name: e.currentTarget.value.replace(/[^\w\s]/gi, "")
         });
 
     };
@@ -48,7 +49,7 @@ const EditContactPage = () => {
     const onChangeLastName = (e: React.FormEvent<HTMLInputElement>) => {
         setUser({
             ...user,
-            last_name: e.currentTarget.value
+            last_name: e.currentTarget.value.replace(/[^\w\s]/gi, "")
         });
     };
 
@@ -74,13 +75,22 @@ const EditContactPage = () => {
         const findIdx = allContacts.findIndex((e: Contacts) => {
             return e.id === user.id
         });
-        let newUpdateUser: Contacts[] = [...allContacts]
-        newUpdateUser[findIdx] = user;
-        setGetContacts(newUpdateUser);
-        setSnackbar({ ...snackbar, open: true });
-        setTimeout(() => {
-            navigate('/contact', { replace: true });
-        }, 1500);
+        let newUpdateUser: Contacts[] = [...allContacts];
+        const checkUserExist = newUpdateUser.find((e: Contacts) => {
+            return e.first_name === user.first_name || e.last_name === user.last_name
+        });
+        if (!checkUserExist) {
+            newUpdateUser[findIdx] = user;
+            setGetContacts(newUpdateUser);
+            setSnackbar({ ...snackbar, open: true });
+            setTimeout(() => {
+                navigate('/contact', { replace: true });
+            }, 1500);
+        } else {
+            setIsError(true);
+            setSnackbar({ ...snackbar, open: true });
+        }
+        
     };
 
 
@@ -91,7 +101,7 @@ const EditContactPage = () => {
     }, [allContacts, query]);
 
     return (
-        <div css={EditContactPageWrapper}>
+        <div data-testid="edit-contact" css={EditContactPageWrapper}>
             <div css={EditContactPageContent}>
                 <ContactForm 
                     isForm={true} 
@@ -110,9 +120,15 @@ const EditContactPage = () => {
                 anchorOrigin={{ vertical, horizontal }}
                 key={vertical + horizontal}
             >
-                <Alert variant="filled" severity="success">
-                    You've successfully updated your contacts!
-                </Alert>
+                {isError ? (
+                    <Alert variant="filled" severity="error">
+                        Contact name must be unique
+                    </Alert>
+                ) : (
+                    <Alert variant="filled" severity="success">
+                            You've successfully updated your contacts!
+                    </Alert>
+                )}
             </Snackbar>
         </div>
     )

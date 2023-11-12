@@ -18,7 +18,7 @@ const useQuery = () => {
 const ContactDetailPage = () => {
     const { ContactDetailPageWrapper, ContactDetailPageContent } = ContactDetailPageStyles();
     const query = useQuery();
-    const allContacts = useRecoilValue(getAllContacts);
+    const allContacts = useRecoilValue<Contacts[]>(getAllContacts);
     const [user, setUser] = useState<Contacts>({
         created_at: '',
         first_name: '',
@@ -35,7 +35,7 @@ const ContactDetailPage = () => {
     }, [allContacts, query]);
 
     return (
-        <div css={ContactDetailPageWrapper}>
+        <div data-testid="contact-detail" css={ContactDetailPageWrapper}>
             <div css={ContactDetailPageContent}>
                 <ContactForm isForm={false} isEdit={false} user={user} />
             </div>

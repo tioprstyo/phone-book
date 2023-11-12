@@ -15,9 +15,10 @@ export const TypeWriterStyle = () => {
         paddingBottom: 15,
         borderRadius: 50,
         cursor: 'pointer',
-        width: '80%',
+        width: '50%',
         '@media(max-width: 600px)': {
             fontSize: 15,
+            marginTop: 30,
         },
         marginTop: 50,
     });

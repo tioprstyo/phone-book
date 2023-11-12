@@ -9,11 +9,13 @@ export const MainStyles = () => {
         justifyContent: 'center',
         display: 'flex',
         flexDirection: 'column',
+        textAlign: 'center',
     });
 
     const MainPageTitle = css({
         color: '#FFFFFF',
         fontSize: 50,
+        width: '100%',
         '@media(max-width: 600px)': {
             fontSize: 30
         },

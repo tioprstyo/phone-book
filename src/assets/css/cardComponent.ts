@@ -62,17 +62,17 @@ export const CardComponentStyles = () => {
         padding: 10,
         cursor: 'pointer',
         backgroundColor: 'transparent',
-        border: '1px solid orange',
+        border: 'none',
         borderRadius: 3,
         alignItems: 'center',
         display: 'inline-flex',
         '@media(max-width: 600px)': {
             padding: 5
         },
-        '&:hover': {
-            color: '#ffffff',
-            backgroundColor: 'orange',
-        }
+        // '&:hover': {
+        //     color: '#ffffff',
+        //     backgroundColor: 'orange',
+        // }
     });
 
     const ButtonEditCard = css({
@@ -91,6 +91,16 @@ export const CardComponentStyles = () => {
         '&:hover': {
             color: '#ffffff',
             backgroundColor: '#00d1b2',
+        }
+    });
+
+    const IconButtonActionsFav = css({
+        width: 20,
+        height: 20,
+        transform: 'translate(0px, 3px)',
+        '@media(max-width: 600px)': {
+            width: 15,
+            height: 15,
         }
     });
 
@@ -162,6 +172,7 @@ export const CardComponentStyles = () => {
         ButtonDeleteCard,
         ButtonFavoriteCard,
         ButtonEditCard,
+        IconButtonActionsFav,
         IconButtonActions,
         TextButtonActions,
         IconPhoneCard,

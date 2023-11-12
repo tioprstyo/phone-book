@@ -17,6 +17,7 @@ const Card = ({ contact, onChangeFavorite, onChangeModalIsOpen }: CardProps) => 
         ButtonDeleteCard,
         ButtonFavoriteCard,
         ButtonEditCard,
+        IconButtonActionsFav,
         IconButtonActions,
         TextButtonActions,
         IconPhoneCard,
@@ -26,7 +27,7 @@ const Card = ({ contact, onChangeFavorite, onChangeModalIsOpen }: CardProps) => 
     } = CardComponentStyles();
     
     return (
-        <div css={CardComponentWrapper}>
+        <div data-testid="card" css={CardComponentWrapper}>
             <div css={CardComponentContentWrapper}>
                 <div css={CardComponentItemWrapper}>
                     <div css={CardComponentItem}>
@@ -42,9 +43,9 @@ const Card = ({ contact, onChangeFavorite, onChangeModalIsOpen }: CardProps) => 
                         <button css={ButtonDeleteCard} onClick={() => onChangeModalIsOpen(contact.id)}><RiDeleteBin6Line css={IconButtonActions} /><span css={TextButtonActions}>Delete</span></button>
                         <button css={ButtonFavoriteCard} onClick={() => onChangeFavorite(contact.id)}> {
                             contact.isFavorite ? (
-                                <AiFillStar css={IconButtonActions} />
+                                <AiFillStar css={IconButtonActionsFav} />
                             ): (
-                                    <AiOutlineStar css={IconButtonActions} />
+                                    <AiOutlineStar css={IconButtonActionsFav} />
                             )
                         }</button>
                     </div>

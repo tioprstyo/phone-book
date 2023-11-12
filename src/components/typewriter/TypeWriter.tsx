@@ -7,7 +7,6 @@ const TypeWriter = ({ text, delay }) => {
     const { TypeWriterTitle, ButtonOpenMyContact } = TypeWriterStyle();
     const [currentText, setCurrentText] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [isButtonShow, setIsButtonShow] = useState(false);
 
     useEffect(() => {
         if (currentIndex < text.length) {
@@ -17,21 +16,17 @@ const TypeWriter = ({ text, delay }) => {
             }, delay);
 
             return () => clearTimeout(timeout);
-        } else {
-            setIsButtonShow(true);
         }
     }, [currentIndex, delay, text]);
 
     return (
-        <div css={TypeWriterTitle}>
+        <div data-testid="type-writer" css={TypeWriterTitle}>
             <div>
                 <span>{currentText}</span>
             </div>
-            {isButtonShow && (
                 <Link to="contact">
-                    <button css={ButtonOpenMyContact}>Open My Contact</button>
+                    <button css={ButtonOpenMyContact}>Open Phone Book</button>
                 </Link>
-            )}
         </div>
     );
 };

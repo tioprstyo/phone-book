@@ -5,8 +5,8 @@ import { MainStyles } from 'src/assets/css';
 const MainPage = () => {
     const { MainPageWrapper, MainPageTitle } = MainStyles()
     return (
-        <div css={MainPageWrapper } >
-            <h1 css={MainPageTitle }> <TypeWriter text="Welcome to My Contact" delay = {50} /> </h1><br />
+        <div css={MainPageWrapper} data-testid="main" >
+            <h1 css={MainPageTitle}> Welcome to <TypeWriter text="Phone Book Apps" delay = {100} /> </h1><br />
         </div>
     )
 }
