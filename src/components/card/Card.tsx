@@ -34,7 +34,7 @@ const Card = ({ contact, onChangeFavorite, onChangeModalIsOpen }: CardProps) => 
                         <Link css={CardNameWrapper} to={`/contact/detail?first-name=${contact.first_name}&id=${contact.id}`}>
                             <p css={CardNameText}>{contact.first_name} {contact.last_name}</p>
                         </Link>
-                        <p css={CardPhoneText}><BsTelephoneFill css={IconPhoneCard} />{contact.phones[0].number}</p>
+                        <p css={CardPhoneText}><BsTelephoneFill css={IconPhoneCard} />{contact.phones.length > 0 ? contact.phones[0]?.number: '-'}</p>
                     </div>
                     <div css={[CardComponentItem, CardComponentButtonWrapper]}>
                         <Link to={`/contact/edit?firstName=${contact.first_name}&id=${contact.id}`}>

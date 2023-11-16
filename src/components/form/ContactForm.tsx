@@ -31,7 +31,7 @@ const ContactForm = ({ isForm, isEdit, user, onChangeFirstName, onChangeLastName
      } = ContactFormStyles();
 
     const isDisabledButtonSaved = () => {
-        if(user.first_name && user.last_name && user.phones[0].number !== '') {
+        if (user.first_name && user.last_name && user.phones[0].number !== '') {
             return false;
         }
         return true;
@@ -72,13 +72,13 @@ const ContactForm = ({ isForm, isEdit, user, onChangeFirstName, onChangeLastName
                         </button>
                     </div>
                     {
-                        user?.phones.map((obj: PhoneNumber, index: number) => {
-                            return (
-                                <div css={formInputPhones} key={index}>
-                                    <input readOnly={!isForm} css={FormInput} type="text" value={obj.number} onChange={(e) => onChangePhones(e.target.value, index)} placeholder="Enter your phone number.." />
-                                </div>
-                            )
-                        })
+                            user?.phones.map((obj: PhoneNumber, index: number) => {
+                                return (
+                                    <div css={formInputPhones} key={index}>
+                                        <input readOnly={!isForm} css={FormInput} type="text" value={!isForm ? obj.number || '-' : obj.number} onChange={(e) => onChangePhones(e.target.value, index)} placeholder="Enter your phone number.." />
+                                    </div>
+                                )
+                            })
                     }
                     
                 </div>

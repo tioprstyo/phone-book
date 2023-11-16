@@ -95,9 +95,20 @@ const EditContactPage = () => {
 
 
     useEffect(() => {
-        setUser(
-            allContacts.find((e: Contacts) => (e.id).toString() === query.get('id'))
-        );
+        let findContact = allContacts.find((e: Contacts) => (e.id).toString() === query.get('id'))
+        
+        setUser({
+            ...user,
+            created_at: findContact.created_at,
+            first_name: findContact.first_name,
+            id: findContact.id,
+            last_name: findContact.last_name,
+            phones: findContact.phones.length > 0 ? findContact.phones: [{ number: '' }],
+            isFavorite: findContact.isFavorite,
+            
+        });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allContacts, query]);
 
     return (
